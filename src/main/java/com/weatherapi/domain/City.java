@@ -1,47 +1,39 @@
 package com.weatherapi.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Produto implements Serializable {
+public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
-	private Double preco;
+	private String name;
 	
 	@JsonBackReference
-	@ManyToMany
-	@JoinTable(
-		name = "PRODUTO_CATEGORIA", 
-		joinColumns = @JoinColumn(name = "produto_id"),
-		inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
-	private List<Categoria> categorias = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name="estate_id")
+	private Estate estate;
 	
-	public Produto() {
+	public City() {
 		
 	}
 
-	public Produto(Integer id, String nome, Double preco) {
+	public City(Integer id, String name, Estate estate) {
 		super();
 		this.id = id;
-		this.nome = nome;
-		this.preco = preco;
+		this.name = name;
+		this.estate = estate;
 	}
 
 	public Integer getId() {
@@ -52,28 +44,20 @@ public class Produto implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Double getPreco() {
-		return preco;
+	public Estate getEstate() {
+		return estate;
 	}
 
-	public void setPreco(Double preco) {
-		this.preco = preco;
-	}
-
-	public List<Categoria> getCategorias() {
-		return categorias;
-	}
-
-	public void setCategorias(List<Categoria> categorias) {
-		this.categorias = categorias;
+	public void setEstate(Estate estate) {
+		this.estate = estate;
 	}
 
 	@Override
@@ -92,13 +76,13 @@ public class Produto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Produto other = (Produto) obj;
+		City other = (City) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-	
+	}	
+
 }

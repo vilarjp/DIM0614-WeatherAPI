@@ -8,39 +8,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Categoria implements Serializable {
+public class Estate implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private String name;
+	private String abbreviation;
 	
 	@JsonManagedReference
-	@ManyToMany(mappedBy="categorias")
-	private List<Produto> produtos = new ArrayList<>();
-
-	public Categoria() {
+	@OneToMany(mappedBy="estate")
+	private List<City> cities = new ArrayList<>();
+	
+	public Estate() {
 		
 	}
 
-	public Categoria(Integer id, String nome) {
+	public Estate(Integer id, String name, String abbreviation) {
 		super();
 		this.id = id;
-		this.nome = nome;
-	}
-	
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+		this.name = name;
+		this.abbreviation = abbreviation;
 	}
 
 	public Integer getId() {
@@ -51,12 +45,28 @@ public class Categoria implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
+	}
+
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
 	}
 
 	@Override
@@ -75,7 +85,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Estate other = (Estate) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -83,5 +93,5 @@ public class Categoria implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

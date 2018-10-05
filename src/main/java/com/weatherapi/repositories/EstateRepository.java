@@ -3,9 +3,9 @@ package com.weatherapi.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.weatherapi.domain.Produto;
+import com.weatherapi.domain.Estate;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
+public interface EstateRepository extends JpaRepository<Estate, Integer>{
 
 }

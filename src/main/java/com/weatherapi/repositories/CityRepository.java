@@ -3,9 +3,9 @@ package com.weatherapi.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.weatherapi.domain.Categoria;
+import com.weatherapi.domain.City;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Integer>{
+public interface CityRepository extends JpaRepository<City, Integer>{
 
 }

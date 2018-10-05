@@ -7,20 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.weatherapi.domain.Categoria;
-import com.weatherapi.services.CategoriaService;
+import com.weatherapi.domain.Estate;
+import com.weatherapi.services.EstateService;
 
 @RestController
-@RequestMapping(value="/categorias")
-public class CategoriaResource {
+@RequestMapping(value="/estates")
+public class EstateResource {
 	
 	@Autowired
-	private CategoriaService service;
+	private EstateService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		Categoria obj = service.buscar(id);
+		Estate obj = service.search(id);
 		return ResponseEntity.ok().body(obj);
 		
 	}
