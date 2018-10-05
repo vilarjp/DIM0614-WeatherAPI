@@ -6,31 +6,31 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.weatherapi.domain.Estate;
-import com.weatherapi.repositories.EstateRepository;
+import com.weatherapi.domain.City;
+import com.weatherapi.repositories.CityRepository;
 import com.weatherapi.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class EstateService {
+public class CityService {
 	
 	@Autowired
-	private EstateRepository repo;
+	private CityRepository repo;
 	
-	public Estate search(Integer id) {
-		Estate obj = repo.findOne(id);
+	public City search(Integer id) {
+		City obj = repo.findOne(id);
 		if (obj == null) {
 			throw new ObjectNotFoundException("Object not found, ID: " + id +
-					", type: " + Estate.class.getName());
+					", type: " + City.class.getName());
 		}
 		return obj;
 	}
 	
-	public List<Estate> searchAll() {
-		List<Estate> list = new ArrayList<>();
+	public List<City> searchAll() {
+		List<City> list = new ArrayList<>();
 		list = repo.findAll();
 		if (list == null) {
 			throw new ObjectNotFoundException("List of objects not found, "
-					+ "type: " + Estate.class.getName());
+					+ "type: " + City.class.getName());
 		}
 		return list;
 	}

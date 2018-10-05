@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.weatherapi.domain.Estate;
-import com.weatherapi.services.EstateService;
+import com.weatherapi.domain.City;
+import com.weatherapi.services.CityService;
 
 @RestController
-@RequestMapping(value="/estates")
-public class EstateResource {
+@RequestMapping(value="/cities")
+public class CityResource {
 	
 	@Autowired
-	private EstateService service;
+	private CityService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		Estate obj = service.search(id);
+		City obj = service.search(id);
 		return ResponseEntity.ok().body(obj);
 		
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<?> findAll() {
-		List<Estate> list = new ArrayList<>();
+		List<City> list = new ArrayList<>();
 		list = service.searchAll();
 		
 		return ResponseEntity.ok().body(list);

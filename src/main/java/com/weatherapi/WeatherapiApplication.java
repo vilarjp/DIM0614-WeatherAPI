@@ -35,7 +35,7 @@ public class WeatherapiApplication implements CommandLineRunner {
 		City c3 = new City(null, "Campinas", est2);
 		
 		est1.getCities().addAll(Arrays.asList(c1));
-		est1.getCities().addAll(Arrays.asList(c2, c3));
+		est2.getCities().addAll(Arrays.asList(c2, c3));
 		
 		estateRepository.save(Arrays.asList(est1, est2));
 		cityRepository.save(Arrays.asList(c1, c2, c3));
