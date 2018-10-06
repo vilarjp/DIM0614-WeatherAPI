@@ -6,37 +6,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class City implements Serializable {
+public class Weather implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
-	
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name="estate_id")
-	private Estate estate;
-	
-	private Weather weather;
-	
-	public City() {
+	private int temperature;
+	private int humidity;
+	private int pressure;
+
+	public Weather() {
 		
 	}
-
-	public City(Integer id, String name, Estate estate, Weather weather) {
+	
+	public Weather(Integer id, int temperature, int humidity, int pressure) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.estate = estate;
-		this.weather = weather;
+		this.temperature = temperature;
+		this.humidity = humidity;
+		this.pressure = pressure;
 	}
 
 	public Integer getId() {
@@ -47,28 +38,28 @@ public class City implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public int getTemperature() {
+		return temperature;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTemperature(int temperature) {
+		this.temperature = temperature;
 	}
 
-	public Estate getEstate() {
-		return estate;
+	public int getHumidity() {
+		return humidity;
 	}
 
-	public void setEstate(Estate estate) {
-		this.estate = estate;
-	}
-	
-	public Weather getWeather() {
-		return weather;
+	public void setHumidity(int humidity) {
+		this.humidity = humidity;
 	}
 
-	public void setWeather(Weather weather) {
-		this.weather = weather;
+	public int getPressure() {
+		return pressure;
+	}
+
+	public void setPressure(int pressure) {
+		this.pressure = pressure;
 	}
 
 	@Override
@@ -87,7 +78,7 @@ public class City implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		City other = (City) obj;
+		Weather other = (Weather) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -95,5 +86,5 @@ public class City implements Serializable {
 			return false;
 		return true;
 	}	
-
+	
 }
