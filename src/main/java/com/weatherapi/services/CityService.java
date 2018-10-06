@@ -16,7 +16,7 @@ public class CityService {
 	@Autowired
 	private CityRepository repo;
 	
-	public City search(Integer id) {
+	public City find(Integer id) {
 		City obj = repo.findOne(id);
 		if (obj == null) {
 			throw new ObjectNotFoundException("Object not found, ID: " + id +
@@ -28,7 +28,7 @@ public class CityService {
 	public List<City> searchAll() {
 		List<City> list = new ArrayList<>();
 		list = repo.findAll();
-		if (list == null) {
+		if (list.size() == 0) {
 			throw new ObjectNotFoundException("List of objects not found, "
 					+ "type: " + City.class.getName());
 		}

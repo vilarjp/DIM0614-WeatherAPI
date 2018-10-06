@@ -35,10 +35,12 @@ public class WeatherapiApplication implements CommandLineRunner {
 		Weather weat2 = new Weather(null, 4, 5, 6);
 		Weather weat3 = new Weather(null, 7, 8, 9);
 		
+		weat1.setHumidity(24);
+		
 		City c1 = new City(null, "Natal", est1, weat1);
 		City c2 = new City(null, "São Paulo", est2, weat2);
 		City c3 = new City(null, "Campinas", est2, weat3);
-		
+				
 		est1.getCities().addAll(Arrays.asList(c1));
 		est2.getCities().addAll(Arrays.asList(c2, c3));
 		

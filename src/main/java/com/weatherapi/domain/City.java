@@ -70,6 +70,10 @@ public class City implements Serializable {
 	public void setWeather(Weather weather) {
 		this.weather = weather;
 	}
+	
+	public void setWeatherId(Integer id) {
+		this.weather.setId(id);
+	}
 
 	@Override
 	public int hashCode() {

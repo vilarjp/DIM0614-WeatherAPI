@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.weatherapi.domain.City;
 import com.weatherapi.services.CityService;
+import com.weatherapi.services.exceptions.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value="/cities")
@@ -21,15 +22,21 @@ public class CityResource {
 	private CityService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<City> find(@PathVariable String id) {
 		
-		City obj = service.search(id);
-		return ResponseEntity.ok().body(obj);
+		try {
+			int foo = Integer.parseInt(id);
+			City obj = service.find(foo);
+			return ResponseEntity.ok().body(obj);
+		} catch(Exception e) {
+			throw new ObjectNotFoundException("Object not found, ID: " + id +
+					", type: " + City.class.getName());
+		}
 		
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<?> findAll() {
+	public ResponseEntity<List<City>> findAll() {
 		List<City> list = new ArrayList<>();
 		list = service.searchAll();
 		
