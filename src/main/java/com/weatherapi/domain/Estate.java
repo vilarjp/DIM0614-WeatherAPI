@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -19,7 +22,13 @@ public class Estate implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotEmpty(message="Name cannot be empty")
+	@Length(min=4, message="Name must be at least 4 characters")
 	private String name;
+	
+	@NotEmpty(message="Abbreviation cannot be empty")
+	@Length(min=2, message="Abbreviation must be at least 2 characters")
 	private String abbreviation;
 	
 	@JsonManagedReference

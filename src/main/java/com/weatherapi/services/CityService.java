@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.weatherapi.domain.City;
 import com.weatherapi.repositories.CityRepository;
+import com.weatherapi.services.exceptions.DataIntegrityException;
 import com.weatherapi.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -19,7 +21,7 @@ public class CityService {
 	public City find(Integer id) {
 		City obj = repo.findOne(id);
 		if (obj == null) {
-			throw new ObjectNotFoundException("Object not found, ID: " + id +
+			throw new ObjectNotFoundException("City not found, ID: " + id +
 					", type: " + City.class.getName());
 		}
 		return obj;
@@ -29,10 +31,36 @@ public class CityService {
 		List<City> list = new ArrayList<>();
 		list = repo.findAll();
 		if (list.size() == 0) {
-			throw new ObjectNotFoundException("List of objects not found, "
+			throw new ObjectNotFoundException("List of cities not found, "
 					+ "type: " + City.class.getName());
 		}
 		return list;
+	}
+	
+	public City insert(City obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public City update(City obj) {
+		City newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.delete(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Cannot delete a city that is not empty");
+		}
+	}
+	
+	private void updateData(City newObj, City obj) {
+		newObj.setName(obj.getName());
+		newObj.setWeather(obj.getWeather());
 	}
 
 }

@@ -2,6 +2,9 @@ package com.weatherapi.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.weatherapi.domain.Estate;
+import com.weatherapi.dto.EstateDTO;
 import com.weatherapi.services.EstateService;
 import com.weatherapi.services.exceptions.ObjectNotFoundException;
 
@@ -32,7 +36,7 @@ public class EstateResource {
 			Estate obj = service.find(foo);
 			return ResponseEntity.ok().body(obj);
 		} catch(Exception e) {
-			throw new ObjectNotFoundException("Object not found, ID: " + id +
+			throw new ObjectNotFoundException("Estate not found, ID: " + id +
 					", type: " + Estate.class.getName());
 		}		
 		
@@ -43,10 +47,18 @@ public class EstateResource {
 		List<Estate> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 		
+	}	
+
+	@RequestMapping(value="/test", method=RequestMethod.GET)
+	public ResponseEntity<List<EstateDTO>> findAllTest() {
+		List<Estate> list = service.findAll();
+		List<EstateDTO> listDto = list.stream().map(obj -> new EstateDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
+		
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Estate obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody Estate obj) {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -55,7 +67,7 @@ public class EstateResource {
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	@CrossOrigin(origins = "*")
-	public ResponseEntity<Void> update(@RequestBody Estate obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody Estate obj, @PathVariable Integer id) {
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
@@ -67,5 +79,5 @@ public class EstateResource {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-
+	
 }

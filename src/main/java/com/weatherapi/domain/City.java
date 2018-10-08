@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -18,6 +21,9 @@ public class City implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotEmpty(message="Name cannot be empty")
+	@Length(min=4, message="Name must be at least 4 characters")
 	private String name;
 	
 	@JsonBackReference
