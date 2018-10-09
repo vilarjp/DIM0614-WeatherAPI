@@ -17,15 +17,30 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.weatherapi.domain.City;
 import com.weatherapi.services.CityService;
-import com.weatherapi.services.exceptions.ObjectNotFoundException;
 
+import com.weatherapi.interfaces.CityInterface;
+
+/**
+ * @class The CityResource class implements the interface CityInterface,
+ * to provide the REST methods and routes
+ * 
+ * default route: http://localhost:8080/cities
+ * 
+ * @author  João Paulo (vilarjp3@ufrn.edu.br)
+ * @author  Luis Eduardo  (cruxiu@ufrn.edu.br)
+ * @version 08.10.2018
+ */
 @RestController
 @RequestMapping(value="/cities")
-public class CityResource {
+public class CityResource implements CityInterface {
 	
 	@Autowired
 	private CityService service;
 	
+	/* (non-Javadoc)
+	 * GET method to http://localhost:8080/cities/{id}
+	 * @return A RestTemplate HttpEntity model with a single city
+	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<City> find(@PathVariable String id) {
 		
@@ -33,13 +48,16 @@ public class CityResource {
 			int foo = Integer.parseInt(id);
 			City obj = service.find(foo);
 			return ResponseEntity.ok().body(obj);
-		} catch(Exception e) {
-			throw new ObjectNotFoundException("City not found, ID: " + id +
-					", type: " + City.class.getName());
+		} catch(NumberFormatException e) {
+			throw new NumberFormatException("Invalid id provided, ID: " + id);
 		}
 		
 	}
 	
+	/* (non-Javadoc)
+	 * GET method to http://localhost:8080/cities
+	 * @return A RestTemplate HttpEntity model with a list of all cities
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<City>> findAll() {
 		List<City> list = service.searchAll();
@@ -47,6 +65,11 @@ public class CityResource {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * POST method to http://localhost:8080/cities
+	 * @param obj A City object that represents a new city
+	 * @return A RestTemplate HttpEntity model with a URI with the new city ID
+	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody City obj) {
 		obj = service.insert(obj);
@@ -55,6 +78,11 @@ public class CityResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	/* (non-Javadoc)
+	 * PUT method to http://localhost:8080/cities/{id} 
+	 * @param obj A Estate object that represents new city infos
+	 * @param id The id of the city that will be updated
+	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	@CrossOrigin(origins = "*")
 	public ResponseEntity<Void> update(@Valid @RequestBody City obj, @PathVariable Integer id) {
@@ -63,6 +91,10 @@ public class CityResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	/* (non-Javadoc)
+	 * DELETE method to http://localhost:8080/cities/{id} 
+	 * @param id The id of the city that will deleted
+	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	@CrossOrigin(origins = "*")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {

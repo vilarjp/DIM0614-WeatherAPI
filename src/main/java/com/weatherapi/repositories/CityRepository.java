@@ -5,7 +5,16 @@ import org.springframework.stereotype.Repository;
 
 import com.weatherapi.domain.City;
 
-@Repository
-public interface CityRepository extends JpaRepository<City, Integer>{
+/**
+ * @class The CityRepository interface extends the JpaRepository that gives
+ * methods to access and manipulate the database
+ *
+ * @author  João Paulo (vilarjp3@ufrn.edu.br)
+ * @author  Luis Eduardo  (cruxiu@ufrn.edu.br)
+ * @version 08.10.2018
+ */
 
+@Repository
+public interface CityRepository extends JpaRepository<City, Integer> {
+		
 }

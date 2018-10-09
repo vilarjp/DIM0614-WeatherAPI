@@ -15,6 +15,9 @@ import com.weatherapi.services.exceptions.ObjectNotFoundException;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
+	/**
+	 * Custom exception when there is no city or estate with the provided ID
+	 */
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 		
@@ -23,6 +26,9 @@ public class ResourceExceptionHandler {
 		
 	}
 	
+	/**
+	 * Custom exception when a DELETE method is used to delete a city or a estate that is no empty
+	 */
 	@ExceptionHandler(DataIntegrityException.class)
 	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
 		
@@ -31,6 +37,9 @@ public class ResourceExceptionHandler {
 		
 	}
 	
+	/**
+	 * Custom exception when a PUT or POST method is used to create a city or a estate with empty or wrong fields
+	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
 		
@@ -41,6 +50,17 @@ public class ResourceExceptionHandler {
 		}
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+		
+	}
+	
+	/**
+	 * Custom exception when the provided id is not valid
+	 */
+	@ExceptionHandler(NumberFormatException.class)
+	public ResponseEntity<StandardError> invalidFormat(NumberFormatException e, HttpServletRequest request) {
+		
+		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 		
 	}
 	

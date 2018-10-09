@@ -14,14 +14,28 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+/**
+ * @class The City class implements a city entity
+ * 
+ * @author  João Paulo (vilarjp3@ufrn.edu.br)
+ * @author  Luis Eduardo  (cruxiu@ufrn.edu.br)
+ * @version 08.10.2018
+ */
+
 @Entity
 public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Auto generates the ID of the city
+	 */
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	/**
+	 * Validate the fields when a city is created
+	 */
 	@NotEmpty(message="Name cannot be empty")
 	@Length(min=4, message="Name must be at least 4 characters")
 	private String name;
@@ -37,6 +51,12 @@ public class City implements Serializable {
 		
 	}
 
+	/**
+	 * @param id
+	 * @param name
+	 * @param estate
+	 * @param weather
+	 */
 	public City(Integer id, String name, Estate estate, Weather weather) {
 		super();
 		this.id = id;
@@ -45,40 +65,60 @@ public class City implements Serializable {
 		this.weather = weather;
 	}
 
+	/**
+	 * @return A integer that represents the id of the city
+	 */
 	public Integer getId() {
 		return id;
 	}
 
+	/**
+	 * @param id A integer that represents the new id of the city
+	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return A string that represents the name of the city
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name A string that represents the new name of the city
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return A estate that represents the estate of the city
+	 */
 	public Estate getEstate() {
 		return estate;
 	}
 
+	/**
+	 * @param estate A estate that represents the new estate of the city
+	 */
 	public void setEstate(Estate estate) {
 		this.estate = estate;
 	}
 	
+	/**
+	 * @return A weather object that represents the weather of the city
+	 */
 	public Weather getWeather() {
 		return weather;
 	}
 
+	/**
+	 * @param weather A weather object that represents the new weather of the city
+	 */
 	public void setWeather(Weather weather) {
 		this.weather = weather;
-	}
-	
-	public void setWeatherId(Integer id) {
-		this.weather.setId(id);
 	}
 
 	@Override

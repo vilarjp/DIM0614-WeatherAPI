@@ -13,9 +13,21 @@ import com.weatherapi.domain.Weather;
 import com.weatherapi.repositories.CityRepository;
 import com.weatherapi.repositories.EstateRepository;
 
+/**
+ * @class The WeatherapiApplication class implements an application that creates and fills
+ * the database and run the Spring Application
+ *
+ * @author  João Paulo (vilarjp3@ufrn.edu.br)
+ * @author  Luis Eduardo  (cruxiu@ufrn.edu.br)
+ * @version 08.10.2018
+ */
+
 @SpringBootApplication
 public class WeatherapiApplication implements CommandLineRunner {
-
+	
+	/**
+	 * Invokes and inject the DB repositories
+	 */
 	@Autowired
 	private EstateRepository estateRepository;
 	@Autowired

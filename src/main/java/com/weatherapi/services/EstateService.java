@@ -7,7 +7,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.weatherapi.domain.Estate;
-import com.weatherapi.dto.EstateDTO;
 import com.weatherapi.repositories.EstateRepository;
 import com.weatherapi.services.exceptions.DataIntegrityException;
 import com.weatherapi.services.exceptions.ObjectNotFoundException;
@@ -21,16 +20,14 @@ public class EstateService {
 	public Estate find(Integer id) {
 		Estate obj = repo.findOne(id);
 		if (obj == null) {
-			throw new ObjectNotFoundException("Estate not found, ID: " + id +
-					", type: " + Estate.class.getName());
+			throw new ObjectNotFoundException("Estate not found, ID: " + id);
 		}
 		return obj;
 	}
 	
 	public List<Estate> findAll() {
 		if (repo.findAll().size() == 0) {
-			throw new ObjectNotFoundException("List of estates not found, "
-					+ "type: " + Estate.class.getName());
+			throw new ObjectNotFoundException("List of estates not found");
 		}
 		return repo.findAll();
 	}
@@ -54,10 +51,6 @@ public class EstateService {
 		catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Cannot delete a state that is not empty");
 		}
-	}
-	
-	public Estate fromDTO(EstateDTO objDto) {
-		return new Estate(objDto.getId(), objDto.getName(), objDto.getAbbreviation());
 	}
 	
 	private void updateData(Estate newObj, Estate obj) {

@@ -21,8 +21,7 @@ public class CityService {
 	public City find(Integer id) {
 		City obj = repo.findOne(id);
 		if (obj == null) {
-			throw new ObjectNotFoundException("City not found, ID: " + id +
-					", type: " + City.class.getName());
+			throw new ObjectNotFoundException("City not found, ID: " + id);
 		}
 		return obj;
 	}
@@ -31,8 +30,7 @@ public class CityService {
 		List<City> list = new ArrayList<>();
 		list = repo.findAll();
 		if (list.size() == 0) {
-			throw new ObjectNotFoundException("List of cities not found, "
-					+ "type: " + City.class.getName());
+			throw new ObjectNotFoundException("List of cities not found");
 		}
 		return list;
 	}

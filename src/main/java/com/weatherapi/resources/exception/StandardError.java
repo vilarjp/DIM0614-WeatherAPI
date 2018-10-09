@@ -2,6 +2,13 @@ package com.weatherapi.resources.exception;
 
 import java.io.Serializable;
 
+/**
+ * @class The StandardError class provides the error response model
+ * 
+ * @author  João Paulo (vilarjp3@ufrn.edu.br)
+ * @author  Luis Eduardo  (cruxiu@ufrn.edu.br)
+ * @version 08.10.2018
+ */
 public class StandardError implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
