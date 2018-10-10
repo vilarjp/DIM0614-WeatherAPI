@@ -97,9 +97,16 @@ public class CityResource implements CityInterface {
 	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	@CrossOrigin(origins = "*")
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<Void> delete(@PathVariable String id) {
+		
+		try {
+			int foo = Integer.parseInt(id);
+			service.delete(foo);
+			return ResponseEntity.noContent().build();
+		} catch(NumberFormatException e) {
+			throw new NumberFormatException("Invalid id provided, ID: " + id);
+		}
+		
 	}
 
 }

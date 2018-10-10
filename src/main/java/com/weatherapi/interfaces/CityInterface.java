@@ -56,6 +56,6 @@ public interface CityInterface {
 	 * @param id A Integer that represents the id of the city.
 	 * @return A ResponseEntity that represents a http response.
 	 */
-	public ResponseEntity<Void> delete(Integer id);
+	public ResponseEntity<Void> delete(String id);
 	
 }

@@ -22,9 +22,9 @@ public class Weather implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private int temperature;
-	private int humidity;
-	private int pressure;
+	private double temperature;
+	private double humidity;
+	private double pressure;
 
 	public Weather() {
 		
@@ -36,7 +36,7 @@ public class Weather implements Serializable {
 	 * @param humidity
 	 * @param pressure
 	 */
-	public Weather(Integer id, int temperature, int humidity, int pressure) {
+	public Weather(Integer id, double temperature, double humidity, double pressure) {
 		super();
 		this.id = id;
 		this.temperature = temperature;
@@ -45,67 +45,67 @@ public class Weather implements Serializable {
 	}
 
 	/**
-	 * @return A integer that represents the id of the weather
+	 * @return A Integer that represents the id of the weather
 	 */
 	public Integer getId() {
 		return id;
 	}
 
 	/**
-	 * @param id A integer that represents the new id of the weather
+	 * @param id A Integer that represents the new id of the weather
 	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return A integer that represents the tempetature of the weather
+	 * @return A Integer that represents the tempetature of the weather
 	 */
-	public int getTemperature() {
+	public double getTemperature() {
 		return temperature;
 	}
 
 	/**
-	 * @param id A integer that represents the new temperature of the weather
+	 * @param id A Integer that represents the new temperature of the weather
 	 */
-	public void setTemperature(int temperature) {
+	public void setTemperature(double temperature) {
 		this.temperature = temperature;
 	}
 
 	/**
-	 * @return A integer that represents the humidty of the weather
+	 * @return A Integer that represents the humidty of the weather
 	 */
-	public int getHumidity() {
+	public double getHumidity() {
 		return humidity;
 	}
 
 	/**
-	 * @param id A integer that represents the new humidity of the weather
+	 * @param id A Integer that represents the new humidity of the weather
 	 */
-	public void setHumidity(int humidity) {
+	public void setHumidity(double humidity) {
 		this.humidity = humidity;
 	}
 
 	/**
-	 * @return A integer that represents the pressure of the weather
+	 * @return A Integer that represents the pressure of the weather
 	 */
-	public int getPressure() {
+	public double getPressure() {
 		return pressure;
 	}
 
 	/**
-	 * @param id A integer that represents the new pressure of the weather
+	 * @param id A Integer that represents the new pressure of the weather
 	 */
-	public void setPressure(int pressure) {
+	public void setPressure(double pressure) {
 		this.pressure = pressure;
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
+		final double prime = 31;
+		double result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+		return (int) result;
 	}
 
 	@Override

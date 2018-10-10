@@ -6,13 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * @class The City class implements a city entity
@@ -37,13 +33,8 @@ public class City implements Serializable {
 	 * Validate the fields when a city is created
 	 */
 	@NotEmpty(message="Name cannot be empty")
-	@Length(min=4, message="Name must be at least 4 characters")
+	@Length(min=2, message="Name must be at least 2 characters")
 	private String name;
-	
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name="estate_id")
-	private Estate estate;
 	
 	private Weather weather;
 	
@@ -54,14 +45,22 @@ public class City implements Serializable {
 	/**
 	 * @param id
 	 * @param name
-	 * @param estate
-	 * @param weather
 	 */
-	public City(Integer id, String name, Estate estate, Weather weather) {
+	public City(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.estate = estate;
+	}
+
+	/**
+	 * @param id
+	 * @param name
+	 * @param weather
+	 */
+	public City(Integer id, String name, Weather weather) {
+		super();
+		this.id = id;
+		this.name = name;
 		this.weather = weather;
 	}
 
@@ -91,20 +90,6 @@ public class City implements Serializable {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * @return A estate that represents the estate of the city
-	 */
-	public Estate getEstate() {
-		return estate;
-	}
-
-	/**
-	 * @param estate A estate that represents the new estate of the city
-	 */
-	public void setEstate(Estate estate) {
-		this.estate = estate;
 	}
 	
 	/**

@@ -3,11 +3,13 @@ package com.weatherapi.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openweathermap.api.WeatherClientRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.weatherapi.domain.City;
+import com.weatherapi.domain.OpenWeatherMapSystem;
 import com.weatherapi.repositories.CityRepository;
 import com.weatherapi.services.exceptions.DataIntegrityException;
 import com.weatherapi.services.exceptions.ObjectNotFoundException;
@@ -22,6 +24,15 @@ public class CityService {
 		City obj = repo.findOne(id);
 		if (obj == null) {
 			throw new ObjectNotFoundException("City not found, ID: " + id);
+		} else {
+			try {
+				OpenWeatherMapSystem weather;
+				weather = new OpenWeatherMapSystem();
+				String city = obj.getName();
+				obj.setWeather(weather.getWeather(city));
+			} catch (WeatherClientRequestException e) {
+				obj = repo.findOne(id);
+			}
 		}
 		return obj;
 	}
