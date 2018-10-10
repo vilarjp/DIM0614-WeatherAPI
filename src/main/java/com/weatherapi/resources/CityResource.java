@@ -39,7 +39,7 @@ public class CityResource implements CityInterface {
 	
 	/* (non-Javadoc)
 	 * GET method to http://localhost:8080/cities/{id}
-	 * @return A RestTemplate HttpEntity model with a single city
+	 * @return A Http response model with a single city
 	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<City> find(@PathVariable String id) {

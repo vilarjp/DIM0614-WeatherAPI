@@ -16,18 +16,19 @@ var getCity = function () {
   var content = document.getElementById('getCityId').value
   axios.get('http://localhost:8080/cities/' + content)
   .then(function (response) {
-    response.data = response.data[0] ? response.data[0] : response.data
+    if(content == '') {
+      var li = document.createElement('li');
+      li.innerHTML = 'ID cannot be empty'
+      document.getElementById('cidade').appendChild(li);
+      return
+    }
+    response.data = response.data
     var li = document.createElement('li');
     var id = response.data.id
     var nome = response.data.name
-    var umidade = 'X'
-    var pressao = 'X'
-    var temperatura = 'X'
-    if(response.data.weather) {
-        umidade = response.data.weather.humidity
-        pressao = response.data.weather.pressure
-        temperatura = response.data.weather.temperature
-    }
+    var umidade = response.data.weather.humidity
+    var pressao = response.data.weather.humidity
+    var temperatura = response.data.weather.temperature
     li.innerHTML = "ID: " + id + " / Nome: " + nome + " / Temperatura: " + temperatura + " / Umidade: " + umidade + " / Pressão: " + pressao
     document.getElementById('cidade').appendChild(li); 
   })

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+  <main>
+    <div class="titulo">
+      <h1>REST API - Client</h1>
+    </div>
+
+    <div class="listagem">
+      <div class="cidades">
+        <h2>Cidades (GET /cities)</h2>
+        <ul id="cidades"></ul>
+        <button onClick="getAllCities()">Go</button>
+      </div>
+      <div class="cidades">
+        <h2>Cidades (GET /cities/{id})</h2>
+        <form onsubmit="event.preventDefault()">
+          <label>ID: </label>
+          <input type="text" id="getCityId">
+          <button onClick="getCity()">Go</button>
+        </form>
+        <ul id="cidade"></ul>
+      </div>
+    </div>
+
+  </main>
+  <script src="main.js"></script>
+</body>
+</html>

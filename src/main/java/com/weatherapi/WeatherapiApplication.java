@@ -20,7 +20,7 @@ import com.weatherapi.repositories.CityRepository;
 public class WeatherapiApplication implements CommandLineRunner {
 	
 	/**
-	 * Invokes and inject the DB repositories
+	 * Auto invokes and inject the DB repositories
 	 */
 	@Autowired
 	private CityRepository cityRepository;
