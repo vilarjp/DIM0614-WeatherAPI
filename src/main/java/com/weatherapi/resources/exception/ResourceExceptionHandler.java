@@ -2,6 +2,7 @@ package com.weatherapi.resources.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.openweathermap.api.WeatherClientRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -58,6 +59,17 @@ public class ResourceExceptionHandler {
 	 */
 	@ExceptionHandler(NumberFormatException.class)
 	public ResponseEntity<StandardError> invalidFormat(NumberFormatException e, HttpServletRequest request) {
+		
+		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+		
+	}
+	
+	/**
+	 * Custom exception when the provided id is not valid
+	 */
+	@ExceptionHandler(WeatherClientRequestException.class)
+	public ResponseEntity<StandardError> invalidFormat(WeatherClientRequestException e, HttpServletRequest request) {
 		
 		StandardError err = new StandardError(HttpStatus.NOT_FOUND.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);

@@ -31,6 +31,23 @@ public class CityService {
 				String city = obj.getName();
 				obj.setWeather(weather.getWeather(city));
 			} catch (WeatherClientRequestException e) {
+				throw new WeatherClientRequestException("No weather information found, ID: " + id);
+			}
+		}
+		return obj;
+	}
+	
+	public City findAtDb(Integer id) {
+		City obj = repo.findOne(id);
+		if (obj == null) {
+			throw new ObjectNotFoundException("City not found, ID: " + id);
+		} else {
+			try {
+				OpenWeatherMapSystem weather;
+				weather = new OpenWeatherMapSystem();
+				String city = obj.getName();
+				obj.setWeather(weather.getWeather(city));
+			} catch (WeatherClientRequestException e) {
 				obj = repo.findOne(id);
 			}
 		}
@@ -52,13 +69,13 @@ public class CityService {
 	}
 	
 	public City update(City obj) {
-		City newObj = find(obj.getId());
+		City newObj = findAtDb(obj.getId());
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id) {
-		find(id);
+		findAtDb(id);
 		try {
 			repo.delete(id);
 		}
